@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities">
+  <meta name="keywords" content="UniversalRAG">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WY4L295FYG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WY4L295FYG');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">UniversalRAG</h1>
+          <h2 class="subtitle is-3 publication-subtitle">Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://wgcyeo.github.io">Woongyeong Yeo</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=9awek3YAAAAJ">Kangsan Kim</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://starsuzi.github.io">Soyeong Jeong</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://jinheonbaek.github.io">Jinheon Baek</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="http://www.sungjuhwang.com">Sung Ju Hwang</a><sup>1,2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>KAIST,</span>
+            <span class="author-block"><sup>2</sup>DeepAuto.ai</span>
+            <span class="eql-cntrb" style="font-size: 1rem;"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/xxxx.xxxxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/xxxx.xxxxx"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/wgcyeo/UniversalRAG"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body has-text-centered">
+      <div class="subtitle has-text-justified" style="font-size: large; margin-bottom: 2rem;">
+        <p><b>👀 TL;DR</b> UniversalRAG is a novel RAG framework that retrieves across multiple modalities and granularities by introducing a modality-aware routing mechanism that dynamically selects the most appropriate corpus for each query, effectively addressing the limitations posed by modality gaps and fixed-granularity retrieval.</p>
+      </div>
+      <img src="./static/images/concept.png" alt="Concept Image" style="width: 90%; border-radius: 10px;">
+      <div class="subtitle has-text-justified" style="font-size: medium;">
+        <p><b>Concept.</b> (A) RAG with a single modality retrieves only one modality of data. (B) RAG with single corpus focuses on data modality in retrieval, regardless of the semantics. (C) UniversalRAG (Ours) effectively supports diverse queries using a router and multiple corpora, spanning different modalities and granularities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Retrieval-Augmented Generation (RAG) has shown substantial promise in improving factual accuracy by grounding model responses with external knowledge relevant to queries. However, most existing RAG approaches are limited to a text-only corpus, and while recent efforts have extended RAG to other modalities such as images and videos, they typically operate over a single modality-specific corpus.
+          </p>
+          <p>
+            In contrast, real-world queries vary widely in the type of knowledge they require, which a single type of knowledge source cannot address. To address this, we introduce <b>UniversalRAG</b>, a novel RAG framework designed to retrieve and integrate knowledge from heterogeneous sources with diverse modalities and granularities. Specifically, motivated by the observation that forcing all modalities into a unified representation space derived from a single combined corpus causes a modality gap, where the retrieval tends to favor items from the same modality as the query, we propose a <b>modality-aware routing mechanism</b> that dynamically identifies the most appropriate modality-specific corpus and performs targeted retrieval within it.
+          </p>
+          <p>
+            Also, beyond modality, we organize each modality into <b>multiple granularity</b> levels, enabling fine-tuned retrieval tailored to the complexity and scope of the query.
+          </p>
+          <p>
+            We validate UniversalRAG on 8 benchmarks spanning multiple modalities, showing its superiority over modality-specific and unified baselines.
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Main Results</h2>
+    <img src="static/images/bar_plot.png" alt="Average Performance" style="display: block; margin: 0 auto; width: 70%; height: auto;"/>
+    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
+      <p>
+        Average scores of baselines and UniversalRAG (Ours) across all multimodal benchmarks. UniversalRAG, by adaptively routing each query to the most suitable modality- and granularity-specific corpus (e.g., no-retrieval, paragraph, document, image, clip, video), consistently outperforms baselines that rely on either a single modality-specific corpus or a unified embedding corpus, highlighting the effectiveness of leveraging multiple modalities of data through adaptive selection.
+      </p>
+    </div>
+    <img src="static/images/quantitative_results.png" alt="Quantitative Results" style="display: block; margin: 0 auto; width: 100%; height: auto;"/>
+    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
+      <p>
+        Overall results comparing UniversalRAG models and baselines across eight multimodal datasets. UniversalRAG (Ours), represented by the <span style="color: #6699ff;">colored cells</span>, includes trained router models for DistilBERT and T5-Large, and a train-free router approach with GPT-4o. By adaptively selecting the optimal retrieval modality for each query, UniversalRAG matches the performance of oracle retrieval selection and surpasses all baselines on average.
+      </p>
+    </div>
+    
+    <h4 class="title is-4 has-text-centered">Effect of Multi-granularity</h4>
+    <img src="static/images/result_granular.png" alt="Granularity Performance" style="display: block; margin: 0 auto; width: 50%; height: auto;"/>
+    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
+      <p>
+        Effect of retrieval granularity on the performance across two benchmarks: HotpotQA, which requires multi-hop reasoning over documents, and LVBench, whose queries are typically answerable with short video segments. UniversalRAG with granularity consistently outperforms the model without granularity, highlighting that incorporating different levels of granularity enhances UniversalRAG’s ability to adaptively handle a wide range of user questions.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h3 class="title is-3 has-text-centered">Case Study</h3>
+    
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="static/images/case_study_full.png" alt="Case Study Full" width="100%" height="100%"/>
+          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">Traditional RAG models are limited by modality-specific retrieval, often missing relevant knowledge from other modalities. UniversalRAG (Ours) dynamically routes each query to the most appropriate modality, enabling more accurate retrieval and response generation.</div>
+        </div>
+        <div class="item">
+          <img src="static/images/case_study_text.png" alt="Case Study Text" width="100%" height="100%"/>
+          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires complex retrieval involving multiple entities. ParagraphRAG retrieves limited context centered around a single entity, leading to an incorrect answer. UniversalRAG (Ours) routes the query to the document corpus and retrieves richer document-level information, allowing it to capture both relevant entities and generate the correct response.</div>
+        </div>
+        <div class="item">
+          <img src="static/images/case_study_video.png" alt="Case Study Video" width="100%" height="100%"/>
+          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires only a segment of the video to determine the answer. VideoRAG retrieves a broad range of frames across the video, which includes irrelevant content and leads to an incorrect answer. UniversalRAG (Ours) routes the query to the clip-level granularity, retrieving more focused and relevant visual information, enabling it to generate the correct response.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title" onclick="copyBibTeX()" style="cursor: pointer;">BibTeX</h2>
+    <pre><code id="bibtex-content">@article{yeo2025universalrag,
+  title={UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities},
+  author={Yeo, Woongyeong and Kim, Kangsan and Jeong, Soyeong and Baek, Jinheon and Hwang, Sung Ju},
+  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This page was adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
