@@ -7,7 +7,7 @@ If you find UniversalRAG useful for your work please cite:
 @article{yeo2025universalrag,
   title={UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities},
   author={Yeo, Woongyeong and Kim, Kangsan and Jeong, Soyeong and Baek, Jinheon and Hwang, Sung Ju},
-  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  journal={arXiv preprint arXiv:2504.20734},
   year={2025}
 }
 ```
