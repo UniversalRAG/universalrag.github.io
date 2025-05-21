@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities">
+        content="UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities">
   <meta name="keywords" content="UniversalRAG">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities</title>
+  <title>UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</title>
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WY4L295FYG"></script>
@@ -43,7 +43,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">UniversalRAG</h1>
-          <h2 class="subtitle is-3 publication-subtitle">Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities</h2>
+          <h2 class="subtitle is-3 publication-subtitle">Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://wgcyeo.github.io">Woongyeong Yeo</a><sup>1*</sup>,</span>
@@ -101,7 +101,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code (Coming Soon)</span>
+                  <span>Code</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
@@ -127,11 +127,11 @@
   <div class="container is-max-desktop">
     <div class="hero-body has-text-centered">
       <div class="subtitle has-text-justified" style="font-size: large; margin-bottom: 2rem;">
-        <p><b>👀 TL;DR</b> UniversalRAG is a novel RAG framework that retrieves across multiple modalities and granularities by introducing a modality-aware routing mechanism that dynamically selects the most appropriate corpus for each query, effectively addressing the limitations posed by modality gaps and fixed-granularity retrieval.</p>
+        <p><b>👀 TL;DR</b> UniversalRAG is a novel RAG framework that retrieves across multiple modalities and granularities by introducing a <em>modality-aware routing mechanism</em> that dynamically identifies the most appropriate modality-specific corpus for each query, effectively addressing the limitations posed by modality gaps and fixed-granularity retrieval.</p>
       </div>
       <img src="./static/images/concept.png" alt="Concept Image" style="width: 90%; border-radius: 10px;">
       <div class="subtitle has-text-justified" style="font-size: medium;">
-        <p><b>Concept.</b> (A) RAG with a single modality retrieves only one modality of data. (B) RAG with single corpus focuses on data modality in retrieval, regardless of the semantics. (C) UniversalRAG (Ours) effectively supports diverse queries using a router and multiple corpora, spanning different modalities and granularities.</p>
+        <p><b>Concept.</b> Illustration of limitations of existing RAG methods (Left), and the proposed UniversalRAG framework (Right). Specifically: (A) RAG with Single Modality struggles to handle queries requiring modalities other than one in the corpus; (B) RAG with Single Granularity lacks flexibility in granularity, resulting in overly fine or overly coarse information; (C) RAG with Single Unified Corpus causes modality gaps that bias retrieval toward the modality of the query; (D) Our UniversalRAG overcomes these limitations via a modality- and granularity-aware routing mechanism over diverse corpora.</p>
       </div>
     </div>
   </div>
@@ -148,13 +148,13 @@
             Retrieval-Augmented Generation (RAG) has shown substantial promise in improving factual accuracy by grounding model responses with external knowledge relevant to queries. However, most existing RAG approaches are limited to a text-only corpus, and while recent efforts have extended RAG to other modalities such as images and videos, they typically operate over a single modality-specific corpus.
           </p>
           <p>
-            In contrast, real-world queries vary widely in the type of knowledge they require, which a single type of knowledge source cannot address. To address this, we introduce <b>UniversalRAG</b>, a novel RAG framework designed to retrieve and integrate knowledge from heterogeneous sources with diverse modalities and granularities. Specifically, motivated by the observation that forcing all modalities into a unified representation space derived from a single combined corpus causes a modality gap, where the retrieval tends to favor items from the same modality as the query, we propose a <b>modality-aware routing mechanism</b> that dynamically identifies the most appropriate modality-specific corpus and performs targeted retrieval within it.
+            In contrast, real-world queries vary widely in the type of knowledge they require, which a single type of knowledge source cannot address. To address this, we introduce <b>UniversalRAG</b>, a novel RAG framework designed to retrieve and integrate knowledge from heterogeneous sources with diverse modalities and granularities. Specifically, motivated by the observation that forcing all modalities into a unified representation space derived from a single aggregated corpus causes a modality gap, where the retrieval tends to favor items from the same modality as the query, we propose a <b>modality-aware routing mechanism</b> that dynamically identifies the most appropriate modality-specific corpus and performs targeted retrieval within it.
           </p>
           <p>
             Also, beyond modality, we organize each modality into <b>multiple granularity</b> levels, enabling fine-tuned retrieval tailored to the complexity and scope of the query.
           </p>
           <p>
-            We validate UniversalRAG on 8 benchmarks spanning multiple modalities, showing its superiority over modality-specific and unified baselines.
+            We validate UniversalRAG on 8 benchmarks spanning multiple modalities, showing its superiority over various modality-specific and unified baselines.
           </p>
         </div>
         </div>
@@ -167,16 +167,16 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Main Results</h2>
-    <img src="static/images/bar_plot.png" alt="Average Performance" style="display: block; margin: 0 auto; width: 70%; height: auto;"/>
+    <img src="static/images/bar_plot.png" alt="Average Performance" style="display: block; margin: 0 auto; width: 80%; height: auto;"/>
     <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
       <p>
-        Average scores of baselines and UniversalRAG (Ours) across all multimodal benchmarks. UniversalRAG, by adaptively routing each query to the most suitable modality- and granularity-specific corpus (e.g., no-retrieval, paragraph, document, image, clip, video), consistently outperforms baselines that rely on either a single modality-specific corpus or a unified embedding corpus, highlighting the effectiveness of leveraging multiple modalities of data through adaptive selection.
+        Comparison of average scores across different RAG methods, including baselines and UniversalRAG (Ours). UniversalRAG, by adaptively routing each query to the most suitable modality- and granularity-specific corpus (e.g., no-retrieval, paragraph, document, image, clip, video), consistently outperforms baselines that rely on either a single modality-specific corpus or a unified embedding corpus, highlighting the effectiveness of leveraging multiple modalities of data through adaptive selection.
       </p>
     </div>
     <img src="static/images/quantitative_results.png" alt="Quantitative Results" style="display: block; margin: 0 auto; width: 100%; height: auto;"/>
     <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
       <p>
-        Overall results comparing UniversalRAG models and baselines across eight multimodal datasets. UniversalRAG (Ours), represented by the <span style="color: #6699ff;">colored cells</span>, includes trained router models for DistilBERT and T5-Large, and a train-free router approach with GPT-4o. By adaptively selecting the optimal retrieval modality for each query, UniversalRAG matches the performance of oracle retrieval selection and surpasses all baselines on average.
+        Overall results comparing diverse RAG methods. Our UniversalRAG is represented by the <span style="color: #6699ff;">colored cells</span>, which includes a train-free router approach with GPT-4o, and trained router models with DistilBERT and T5-Large. By adaptively selecting the optimal retrieval modality for each query, UniversalRAG matches the performance of oracle retrieval selection and surpasses all baselines on average.
       </p>
     </div>
     
@@ -207,7 +207,7 @@
         </div>
         <div class="item">
           <img src="static/images/case_study_video.png" alt="Case Study Video" width="100%" height="100%"/>
-          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires only a segment of the video to determine the answer. VideoRAG retrieves a broad range of frames across the video, which includes irrelevant content and leads to an incorrect answer. UniversalRAG (Ours) routes the query to the clip-level granularity, retrieving more focused and relevant visual information, enabling it to generate the correct response.</div>
+          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires only a segment of the video to determine the answer. VideoRAG retrieves a broad range of frames across the video, which may include irrelevant content or miss key frames, leading to an incorrect response. UniversalRAG (Ours) routes the query to the clip-level granularity, retrieving more focused and relevant visual information, enabling it to generate the correct response.</div>
         </div>
       </div>
     </div>
@@ -219,7 +219,7 @@
   <div class="container is-max-desktop content">
     <h2 class="title" onclick="copyBibTeX()" style="cursor: pointer;">BibTeX</h2>
     <pre><code id="bibtex-content">@article{yeo2025universalrag,
-  title={UniversalRAG: Retrieval-Augmented Generation over Multiple Corpora with Diverse Modalities and Granularities},
+  title={UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities},
   author={Yeo, Woongyeong and Kim, Kangsan and Jeong, Soyeong and Baek, Jinheon and Hwang, Sung Ju},
   journal={arXiv preprint arXiv:2504.20734},
   year={2025}
