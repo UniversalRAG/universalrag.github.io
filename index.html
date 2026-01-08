@@ -1,249 +1,783 @@
+---
+layout: none
+permalink: /
+---
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities">
-  <meta name="keywords" content="UniversalRAG">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</title>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WY4L295FYG"></script>
+  <title>{{ site.title }}</title>
+  {% assign meta_title = site.title %}
+  {% assign meta_description = site.description | default: "AI project page overview and resources." %}
+  {% assign meta_image = site.data.tldr.figure | default: "https://placehold.co/1200x630/1f6feb/ffffff?text=AI+Project" %}
+  <meta name="description" content="{{ meta_description | strip_html | strip_newlines | truncate: 155 }}">
+  <meta name="robots" content="index,follow">
+  {% if site.google_site_verification %}
+  <meta name="google-site-verification" content="{{ site.google_site_verification }}">
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ meta_title }}">
+  <meta property="og:description" content="{{ meta_description | strip_html | strip_newlines | truncate: 155 }}">
+  <meta property="og:image" content="{{ meta_image | absolute_url }}">
+  {% if site.url %}
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ meta_title }}">
+  <meta name="twitter:description" content="{{ meta_description | strip_html | strip_newlines | truncate: 155 }}">
+  <meta name="twitter:image" content="{{ meta_image | absolute_url }}">
+  {% if site.google_analytics_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics_id }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-WY4L295FYG');
+    gtag('config', '{{ site.google_analytics_id }}');
   </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  {% endif %}
+  {% assign font_choice = site.font_style | default: "sans" %}
+  {% assign font_presets = site.font_presets %}
+  {% assign selected_font = font_presets[font_choice] %}
+  {% if selected_font == nil %}
+    {% assign selected_font = font_presets.sans %}
+  {% endif %}
+  {% assign font_family = selected_font.family | default: "Inter" %}
+  {% assign font_weights = selected_font.weights | default: "400;500;600;700" %}
+  {% assign font_stack = selected_font.stack | default: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif' %}
+  {% assign heading_stack = selected_font.heading_stack | default: font_stack %}
+  {% assign body_weight = selected_font.body_weight | default: 400 %}
+  {% assign heading_weight = selected_font.heading_weight | default: 700 %}
+  {% assign heading_letter_spacing = selected_font.heading_letter_spacing | default: "-0.03em" %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family={{ font_family | replace: ' ', '+' }}:wght@{{ font_weights }}&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/css/fontawesome-free-7.0.0-web/css/all.min.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/css/academicons-1.9.4/css/academicons.min.css' | relative_url }}">
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #101827;
+      --muted: #4b5563;
+      --accent: #1f6feb;
+      --border: #e5e7eb;
+      --tldr-bg: #eef2fb;
+      --radius: 14px;
+      --shadow: 0 12px 30px rgba(15, 24, 46, 0.08);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --font-body: {{ font_stack }};
+      --font-heading: {{ heading_stack }};
+      --font-body-weight: {{ body_weight }};
+      --font-heading-weight: {{ heading_weight }};
+      --heading-letter-spacing: {{ heading_letter_spacing }};
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-weight: var(--font-body-weight);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .brand {
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+      letter-spacing: var(--heading-letter-spacing);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--accent);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      margin-left: 16px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    nav a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      box-shadow: 0 10px 24px rgba(31, 111, 235, 0.22);
+    }
+    .btn i { font-size: 16px; }
+    .btn .ai { font-size: 17px; }
+    .hero-actions .btn {
+      box-shadow: 0 10px 24px rgba(15, 24, 46, 0.08);
+      background: #fff;
+    }
+    .hero-actions .btn.pdf i { color: #c62828; }
+    .hero-actions .btn.arxiv i { color: #b31b1b; }
+    .hero-actions .btn.code i { color: #24292e; }
+    .hero-actions .btn.demo i { color: #0ea5e9; }
+    main { padding: 30px 0 60px; }
+    .hero { display: none; }
+    .title-block {
+      text-align: center;
+      margin: 48px 0 36px;
+    }
+    .title-block h1 {
+      font-size: clamp(1.95rem, 3vw, 2.5rem);
+      letter-spacing: var(--heading-letter-spacing);
+      margin: 12px 0 32px;
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+      line-height: 1.25;
+    }
+    .authors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.3rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .author {
+      display: inline-block;
+    }
+    .author:not(:last-child)::after {
+      content: ", ";
+      padding-left: 1px;
+    }
+    .affil {
+      font-size: 0.7em;
+      margin-left: 2px;
+      vertical-align: super;
+      line-height: 1;
+      font-weight: 700;
+    }
+    .affil-1 { color: #d1432f; }
+    .affil-2 { color: #2563eb; }
+    .affil-3 { color: #f59e0b; }
+    .affil-4 { color: #10b981; }
+    .author-link { text-decoration: none; color: inherit; }
+    .author-link:hover { color: var(--accent); }
+    .affiliations {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      column-gap: 10px;
+      row-gap: 6px;
+      line-height: 1.4;
+    }
+    .affiliation-item {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .affiliation-item:not(:last-child)::after {
+      content: "·";
+      margin-left: 8px;
+    }
+    .affil {
+      position: relative;
+      top: -0.18em;
+    }
+    .tldr {
+      position: relative;
+      text-align: center;
+      margin: 26px 0 32px;
+      padding: 28px 0 30px;
+      z-index: 0;
+    }
+    .tldr::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(-50vw + 50%);
+      right: calc(-50vw + 50%);
+      background: var(--tldr-bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      z-index: -1;
+    }
+    .tldr-inner {
+      margin: 0 auto;
+      padding: 0;
+    }
+    .tldr .label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .tldr .lead {
+      font-size: 1.05em;
+      margin: 8px auto 12px;
+      color: var(--text);
+      max-width: 780px;
+    }
+    .tldr-figure {
+      margin-top: 14px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 0;
+      box-shadow: none;
+      background: transparent;
+    }
+    .tldr-body {
+      text-align: center;
+      margin: 12px auto 18px;
+      max-width: 820px;
+    }
+    .tldr-body p {
+      margin: 10px 0;
+      font-size: 1.05em;
+      color: var(--text);
+    }
+    .tldr-figure img {
+      width: 100%;
+      display: block;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: #f3f4f6;
+    }
+    .tldr-caption {
+      padding: 8px 0 0;
+      font-size: 1em;
+      background: transparent;
+      text-align: left;
+      line-height: 1.6;
+      border: 0;
+    }
+    .tldr .tldr-caption p {
+      margin: 4px 0 0;
+    }
+    .tldr .tldr-caption p:first-child { margin-top: 0; }
+    .tldr .tldr-caption p:last-child { margin-bottom: 0; }
+    .tldr .tldr-caption ul,
+    .tldr .tldr-caption ol {
+      margin: 8px 0 0;
+      padding-left: 26px;
+    }
+    .tldr .tldr-caption ol {
+      list-style: none;
+      counter-reset: tldr-caption;
+      padding-left: 0;
+    }
+    .tldr .tldr-caption ol > li {
+      position: relative;
+      counter-increment: tldr-caption;
+      padding-left: 28px;
+      margin: 6px 0;
+    }
+    .tldr .tldr-caption ol > li::before {
+      content: "(" counter(tldr-caption, lower-alpha) ") ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      color: inherit;
+    }
+    .alpha-list {
+      list-style: none;
+      counter-reset: alpha-list;
+      padding-left: 0;
+      margin: 8px 0 0;
+    }
+    .alpha-list > li {
+      position: relative;
+      counter-increment: alpha-list;
+      padding-left: 28px;
+      margin: 6px 0;
+    }
+    .alpha-list > li::before {
+      content: "(" counter(alpha-list, lower-alpha) ") ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      color: inherit;
+    }
+    #abstract {
+      margin: 42px 0;
+    }
+    .abstract-card {
+      padding: 18px 18px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      box-shadow: 0 10px 24px rgba(15, 24, 46, 0.04);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .abstract-card .markdown-body {
+      padding: 4px 2px 2px;
+    }
+    .abstract-card .markdown-body p {
+      margin: 10px 0;
+      color: #111827;
+    }
+    .hero-actions.centered { justify-content: center; }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(1.7rem, 2.4vw, 2.05rem);
+      letter-spacing: var(--heading-letter-spacing);
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+    }
+    .lead {
+      color: var(--muted);
+      font-size: 1.05em;
+      max-width: 640px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .muted { color: var(--muted); }
+    .note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    section { margin: 32px 0; }
+    .figure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .slider-section { margin: 32px 0; }
+    .slider {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: 0;
+    }
+    .slide {
+      display: none;
+      background: #fff;
+    }
+    .slide.active { display: block; }
+    .slide-media {
+      position: relative;
+      background: #f3f4f6;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 700px;
+    }
+    .slide-media img,
+    .slide-media video {
+      width: 100%;
+      height: auto;
+      max-height: 700px;
+      object-fit: contain;
+      display: block;
+    }
+    .slide-caption {
+      padding: 12px 14px 14px;
+      background: #fff;
+    }
+    .slide-title {
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+      letter-spacing: calc(var(--heading-letter-spacing) * 0.5);
+      margin: 4px 0 6px;
+    }
+    .slider-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 24px rgba(15, 24, 46, 0.14);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .slider-control:hover { transform: translateY(-50%) translateY(-1px); box-shadow: 0 12px 28px rgba(15, 24, 46, 0.16); }
+    .slider-control:active { transform: translateY(-50%) translateY(0); }
+    .slider-control.prev { left: 12px; }
+    .slider-control.next { right: 12px; }
+    .slider-indicator {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(17, 24, 39, 0.8);
+      color: #f9fafb;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+    figure {
+      margin: 0;
+    }
+    figure img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: block;
+      background: #f3f4f6;
+    }
+    figcaption {
+      font-size: 1em;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .md-section .markdown-body {
+      padding: 6px 2px;
+    }
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4 {
+      margin-top: 14px;
+      margin-bottom: 8px;
+      letter-spacing: calc(var(--heading-letter-spacing) * 0.66);
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+    }
+    .markdown-body h2 { font-size: 1.25rem; }
+    .markdown-body h3 { font-size: 1.08rem; }
+    .markdown-body h4 { font-size: 0.95rem; }
+    .markdown-body h5 { font-size: 0.83rem; }
+    .markdown-body h6 { font-size: 0.67rem; }
+    .section-heading {
+      font-size: clamp(1.7rem, 2.4vw, 2.05rem);
+      margin: 8px 0 8px;
+      letter-spacing: var(--heading-letter-spacing);
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+    }
+    .markdown-body p { margin: 12px 0; color: var(--text); }
+    .markdown-body ul, .markdown-body ol { margin: 12px 0 12px 20px; color: var(--text); }
+    .markdown-body code {
+      background: #f0f2f8;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.95em;
+    }
+    .markdown-body pre code {
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      color: inherit;
+      font-size: 0.95em;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 14px 56px 14px 14px;
+      border-radius: 10px;
+      overflow-x: auto;
+      border: 1px solid #1f2a44;
+      position: relative;
+      font-family: var(--mono);
+    }
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #1f2937;
+      background: #111827;
+      color: #e5e7eb;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #111827;
+      color: #f9fafb;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 14px 30px rgba(15, 24, 46, 0.16);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 30;
+    }
+    .to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .to-top:hover { transform: translateY(-2px); }
+    .to-top i { font-size: 18px; }
+    footer {
+      margin: 50px 0 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      nav a { margin-left: 12px; }
+      .nav { flex-wrap: wrap; height: auto; padding: 12px 0; gap: 10px; }
+    }
+    @media (max-width: 720px) {
+      .authors {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 10px;
+        line-height: 1.35;
+      }
+      .author { display: inline-flex; text-align: center; }
+      .affiliations { line-height: 1.35; }
+    }
+  </style>
 </head>
 <body>
-
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">UniversalRAG</h1>
-          <h2 class="subtitle is-3 publication-subtitle">Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</h2>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://wgcyeo.github.io">Woongyeong Yeo</a><sup>1*</sup>,</span>
-            <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=9awek3YAAAAJ">Kangsan Kim</a><sup>1*</sup>,</span>
-            <span class="author-block">
-              <a href="https://starsuzi.github.io">Soyeong Jeong</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://jinheonbaek.github.io">Jinheon Baek</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="http://www.sungjuhwang.com">Sung Ju Hwang</a><sup>1,2</sup></span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>KAIST,</span>
-            <span class="author-block"><sup>2</sup>DeepAuto.ai</span>
-            <span class="eql-cntrb" style="font-size: 1rem;"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2504.20734"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2504.20734"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Video Link. -->
-              <!-- <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span> -->
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/wgcyeo/UniversalRAG"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <!-- <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
-              </span> -->
-            </div>
-
-          </div>
-        </div>
+  <main class="container" id="top">
+    <section class="title-block">
+      <h1>UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</h1>
+      <div class="authors">
+        <span class="author"><a href="https://wgcyeo.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Woongyeong Yeo</a><sup>*</sup><sup class="affil affil-1">1</sup></span>
+        <span class="author"><a href="https://kangsankim07.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Kangsan Kim</a><sup>*</sup><sup class="affil affil-1">1</sup></span>
+        <span class="author"><a href="https://starsuzi.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Soyeong Jeong</a><sup class="affil affil-1">1</sup></span>
+        <span class="author"><a href="https://jinheonbaek.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Jinheon Baek</a><sup class="affil affil-1">1</sup></span>
+        <span class="author"><a href="http://www.sungjuhwang.com" class="author-link" target="_blank" rel="noopener noreferrer">Sung Ju Hwang</a><sup class="affil affil-1">1</sup><sup>,</sup><sup class="affil affil-2">2</sup></span>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body has-text-centered">
-      <div class="subtitle has-text-justified" style="font-size: large; margin-bottom: 2rem;">
-        <p><b>👀 TL;DR</b> UniversalRAG is a novel RAG framework that retrieves across multiple modalities and granularities by introducing a <em>modality-aware routing mechanism</em> that dynamically identifies the most appropriate modality-specific corpus for each query, effectively addressing the limitations posed by modality gaps and fixed-granularity retrieval.</p>
+      <div class="affiliations">
+        <span class="affiliation-item"><sup class="affil affil-1">1</sup><span>KAIST</span></span>
+        <span class="affiliation-item"><sup class="affil affil-2">2</sup><span>DeepAuto.ai</span></span>
       </div>
-      <img src="./static/images/concept.png" alt="Concept Image" style="width: 90%; border-radius: 10px;">
-      <div class="subtitle has-text-justified" style="font-size: medium;">
-        <p><b>Concept.</b> Illustration of limitations of existing RAG methods (Left), and the proposed UniversalRAG framework (Right). Specifically: (A) RAG with Single Modality struggles to handle queries requiring modalities other than one in the corpus; (B) RAG with Single Granularity lacks flexibility in granularity, resulting in overly fine or overly coarse information; (C) RAG with Single Unified Corpus causes modality gaps that bias retrieval toward the modality of the query; (D) Our UniversalRAG overcomes these limitations via a modality- and granularity-aware routing mechanism over diverse corpora.</p>
+      {% assign note_line = "" %}
+      {% if site.equal_contribution_note %}
+        {% assign note_line = site.equal_contribution_note %}
+      {% endif %}
+      {% if site.equal_advising_note %}
+        {% if note_line != "" %}
+          {% assign note_line = note_line | append: ", " | append: site.equal_advising_note %}
+        {% else %}
+          {% assign note_line = site.equal_advising_note %}
+        {% endif %}
+      {% endif %}
+      {% if note_line != "" %}
+      <div class="note">{{ note_line }}</div>
+      {% endif %}
+      <div class="hero-actions centered" style="margin-top:22px; margin-bottom:18px;">
+        <a class="btn pdf" href="https://arxiv.org/pdf/2504.20734" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-file-pdf"></i><span>Paper</span></a>
+        <a class="btn arxiv" href="https://arxiv.org/abs/2504.20734" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i><span>arXiv</span></a>
+        <a class="btn code" href="https://github.com/wgcyeo/UniversalRAG" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i><span>Code</span></a>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="section has-background-light">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Retrieval-Augmented Generation (RAG) has shown substantial promise in improving factual accuracy by grounding model responses with external knowledge relevant to queries. However, most existing RAG approaches are limited to a text-only corpus, and while recent efforts have extended RAG to other modalities such as images and videos, they typically operate over a single modality-specific corpus.
-          </p>
-          <p>
-            In contrast, real-world queries vary widely in the type of knowledge they require, which a single type of knowledge source cannot address. To address this, we introduce <b>UniversalRAG</b>, a novel RAG framework designed to retrieve and integrate knowledge from heterogeneous sources with diverse modalities and granularities. Specifically, motivated by the observation that forcing all modalities into a unified representation space derived from a single aggregated corpus causes a modality gap, where the retrieval tends to favor items from the same modality as the query, we propose a <b>modality-aware routing mechanism</b> that dynamically identifies the most appropriate modality-specific corpus and performs targeted retrieval within it.
-          </p>
-          <p>
-            Also, beyond modality, we organize each modality into <b>multiple granularity</b> levels, enabling fine-tuned retrieval tailored to the complexity and scope of the query.
-          </p>
-          <p>
-            We validate UniversalRAG on 8 benchmarks spanning multiple modalities, showing its superiority over various modality-specific and unified baselines.
-          </p>
-        </div>
-        </div>
+    {% assign tldr_body_clean = site.data.tldr.body | default: "" | strip %}
+    {% assign tldr_image = site.data.tldr.figure | default: "" | strip | default: 'https://placehold.co/1200x520/0ea5e9/ffffff?text=Concept+Figure' %}
+    {% assign tldr_caption = site.data.tldr.caption | default: "" | strip | default: 'Concept figure illustrating the main idea—replace this caption with your own description.' %}
+    {% assign tldr_caption_html = tldr_caption | markdownify %}
+    {% assign tldr_caption_plain = tldr_caption_html | strip_html | strip_newlines %}
+    <section class="tldr" id="tldr">
+      <div class="tldr-inner">
+        {% if tldr_body_clean != "" %}
+          <div class="label">TL;DR</div>
+          <article class="markdown-body tldr-body">
+            {{ tldr_body_clean | markdownify }}
+          </article>
+        {% endif %}
+        <figure class="tldr-figure">
+          <img src="{{ tldr_image }}" alt="Concept figure">
+          <figcaption class="tldr-caption markdown-body">{{ tldr_caption_html }}</figcaption>
+        </figure>
       </div>
-    </div>
-    <!--/ Abstract. -->
-</section>
+    </section>
 
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Main Results</h2>
-    <img src="static/images/bar_plot.png" alt="Average Performance" style="display: block; margin: 0 auto; width: 80%; height: auto;"/>
-    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
-      <p>
-        Comparison of average scores across different RAG methods, including baselines and UniversalRAG (Ours). UniversalRAG, by adaptively routing each query to the most suitable modality- and granularity-specific corpus (e.g., no-retrieval, paragraph, document, image, clip, video), consistently outperforms baselines that rely on either a single modality-specific corpus or a unified embedding corpus, highlighting the effectiveness of leveraging multiple modalities of data through adaptive selection.
-      </p>
-    </div>
-    <img src="static/images/quantitative_results.png" alt="Quantitative Results" style="display: block; margin: 0 auto; width: 100%; height: auto;"/>
-    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
-      <p>
-        Overall results comparing diverse RAG methods. Our UniversalRAG is represented by the <span style="color: #6699ff;">colored cells</span>, which includes a train-free router approach with GPT-4o, and trained router models with DistilBERT and T5-Large. By adaptively selecting the optimal retrieval modality for each query, UniversalRAG matches the performance of oracle retrieval selection and surpasses all baselines on average.
-      </p>
-    </div>
-    
-    <h4 class="title is-4 has-text-centered">Effect of Multi-granularity</h4>
-    <img src="static/images/result_granular.png" alt="Granularity Performance" style="display: block; margin: 0 auto; width: 50%; height: auto;"/>
-    <div class="content has-text-justified" style="width: 90%; margin: 1rem auto;">
-      <p>
-        Effect of retrieval granularity on the performance across two benchmarks: HotpotQA, which requires multi-hop reasoning over documents, and LVBench, whose queries are typically answerable with short video segments. UniversalRAG with granularity consistently outperforms the model without granularity, highlighting that incorporating different levels of granularity enhances UniversalRAG’s ability to adaptively handle a wide range of user questions.
-      </p>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <h3 class="title is-3 has-text-centered">Case Study</h3>
-    
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item">
-          <img src="static/images/case_study_full.png" alt="Case Study Full" width="100%" height="100%"/>
-          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">Traditional RAG models are limited by modality-specific retrieval, often missing relevant knowledge from other modalities. UniversalRAG (Ours) dynamically routes each query to the most appropriate modality, enabling more accurate retrieval and response generation.</div>
-        </div>
-        <div class="item">
-          <img src="static/images/case_study_text.png" alt="Case Study Text" width="100%" height="100%"/>
-          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires complex retrieval involving multiple entities. ParagraphRAG retrieves limited context centered around a single entity, leading to an incorrect answer. UniversalRAG (Ours) routes the query to the document corpus and retrieves richer document-level information, allowing it to capture both relevant entities and generate the correct response.</div>
-        </div>
-        <div class="item">
-          <img src="static/images/case_study_video.png" alt="Case Study Video" width="100%" height="100%"/>
-          <div class="subtitle has-text-justified" style="font-size: medium; margin-top: 1rem;">The user query requires only a segment of the video to determine the answer. VideoRAG retrieves a broad range of frames across the video, which may include irrelevant content or miss key frames, leading to an incorrect response. UniversalRAG (Ours) routes the query to the clip-level granularity, retrieving more focused and relevant visual information, enabling it to generate the correct response.</div>
-        </div>
+    <section class="md-section" id="abstract">
+      <div class="abstract-card">
+        {% capture abstract_md %}{% include_relative sections/abstract.md %}{% endcapture %}
+        <article class="markdown-body">{{ abstract_md | markdownify }}</article>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <section class="md-section" id="method">
+      {% capture method_md %}{% include_relative sections/method.md %}{% endcapture %}
+      <article class="markdown-body">{{ method_md | markdownify }}</article>
+    </section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title" onclick="copyBibTeX()" style="cursor: pointer;">BibTeX</h2>
-    <pre><code id="bibtex-content">@article{yeo2025universalrag,
-  title={UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities},
-  author={Yeo, Woongyeong and Kim, Kangsan and Jeong, Soyeong and Baek, Jinheon and Hwang, Sung Ju},
-  journal={arXiv preprint arXiv:2504.20734},
-  year={2025}
-}</code></pre>
-  </div>
-</section>
+    <section class="md-section" id="results">
+      {% capture results_md %}{% include_relative sections/results.md %}{% endcapture %}
+      <article class="markdown-body">{{ results_md | markdownify }}</article>
+    </section>
 
+    {% include slider.html id="casestudy" %}
 
-<footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This page was adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+    <section class="md-section" id="bibtex">
+      {% capture bibtex_md %}{% include_relative sections/bibtex.md %}{% endcapture %}
+      <article class="markdown-body">
+        <h1 class="section-heading">BibTeX</h1>
+        {{ bibtex_md | markdownify }}
+      </article>
+    </section>
 
+    <footer>
+      <div>This website is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0</a>. If you'd like to use any of our content, please include a link back.</div>
+    </footer>
+  </main>
+  <button id="to-top" class="to-top" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Add copy buttons to code blocks, useful for BibTeX.
+    function attachCopyButtons() {
+      document.querySelectorAll("pre").forEach((pre) => {
+        if (pre.querySelector(".copy-btn")) return;
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.type = "button";
+        button.textContent = "Copy";
+        button.addEventListener("click", () => {
+          const codeEl = pre.querySelector("code");
+          const textToCopy = (codeEl ? codeEl.textContent : pre.textContent).trim();
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            const original = button.textContent;
+            button.textContent = "Copied";
+            setTimeout(() => (button.textContent = original), 1200);
+          });
+        });
+        pre.appendChild(button);
+      });
+    }
+
+    // Toggle and handle "back to top" button.
+    function initBackToTop() {
+      const btn = document.getElementById("to-top");
+      if (!btn) return;
+      const toggle = () => {
+        if (window.scrollY > 280) {
+          btn.classList.add("show");
+        } else {
+          btn.classList.remove("show");
+        }
+      };
+      toggle();
+      window.addEventListener("scroll", toggle, { passive: true });
+      btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    // Lightweight slideshow with next/prev controls.
+    function initSliders() {
+      document.querySelectorAll("[data-slider]").forEach((slider) => {
+        const slides = Array.from(slider.querySelectorAll("[data-slide]"));
+        if (!slides.length) return;
+        let index = slides.findIndex((s) => s.classList.contains("active"));
+        index = index >= 0 ? index : 0;
+        const indicator = slider.querySelector("[data-slider-index]");
+        const setActive = () => {
+          slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+          if (indicator) indicator.textContent = `${index + 1} / ${slides.length}`;
+        };
+        slider.querySelectorAll("[data-prev]").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            index = (index - 1 + slides.length) % slides.length;
+            setActive();
+          })
+        );
+        slider.querySelectorAll("[data-next]").forEach((btn) =>
+          btn.addEventListener("click", () => {
+            index = (index + 1) % slides.length;
+            setActive();
+          })
+        );
+        setActive();
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      attachCopyButtons();
+      initBackToTop();
+      initSliders();
+    });
+  </script>
 </body>
 </html>

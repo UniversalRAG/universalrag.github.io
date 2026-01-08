@@ -1,0 +1,30 @@
+- id: casestudy
+  title: Case Study
+  slides:
+    - label: Slide 1
+      title: Case study comparing RAG on single modality against UniversalRAG (Ours)
+      caption: Traditional RAG models are limited by modality-specific retrieval, often missing relevant knowledge from other modalities. UniversalRAG (Ours) dynamically routes each query to the most appropriate modality, enabling more accurate retrieval and response generation.
+      type: image
+      src: assets/fig/casestudy_full.webp
+      alt: Case Study (Full)
+
+    - label: Slide 2
+      title: Case study comparing different levels of text granularity
+      caption: The user query requires complex retrieval involving multiple entities. ParagraphRAG retrieves limited context centered around a single entity, leading to an incorrect answer. UniversalRAG (Ours) routes the query to the document corpus and retrieves richer document-level information, allowing it to capture both relevant entities and generate the correct response.
+      type: image
+      src: assets/fig/casestudy_gran_text.webp
+      alt: Case Study (Granularity - Text)
+
+    - label: Slide 3
+      title: Case study comparing different levels of video granularity
+      caption: The user query requires only a segment of the video to determine the answer. VideoRAG retrieves a broad range of frames across the video, which may include irrelevant content or miss key frames, leading to an incorrect response. UniversalRAG (Ours) routes the query to the clip-level granularity, retrieving more focused and relevant visual information, enabling it to generate the correct response.
+      type: image
+      src: assets/fig/casestudy_gran_video.webp
+      alt: Case Study (Granularity - Video)
+
+    - label: Slide 4
+      title: Case study comparing UniversalRAG across uni-modal and cross-modal scenarios
+      caption: In the uni-modal setup, where only a single prominent modality is used, information can sometimes be incomplete as they require evidence across modalities. UniversalRAG (Ours), with its cross-modal capability, gathers evidence from multiple modalities to generate a more comprehensive response.
+      type: image
+      src: assets/fig/casestudy_cross_modal.webp
+      alt: Case Study (Cross Modal)

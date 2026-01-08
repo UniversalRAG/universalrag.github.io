@@ -1,0 +1,38 @@
+{% assign slider_sets = site.data.slides | default: empty %}
+{% assign slider = include.slider %}
+{% if slider == nil and include.id %}
+  {% assign slider = slider_sets | where: "id", include.id | first %}
+{% endif %}
+{% if slider == nil and include.index %}
+  {% assign slider = slider_sets[include.index] %}
+{% endif %}
+
+{% if slider and slider.slides %}
+<section class="slider-section" aria-label="{{ slider.aria_label | default: slider.title | default: 'Slideshow' }}">
+  {% if slider.title %}<h1 class="section-heading">{{ slider.title }}</h1>{% endif %}
+  <div class="slider card" data-slider>
+    {% for slide in slider.slides %}
+    <div class="slide{% if forloop.first %} active{% endif %}" data-slide>
+      <div class="slide-media">
+        {% if slide.type == "video" %}
+        <video src="{{ slide.src }}" {% if slide.poster %}poster="{{ slide.poster }}"{% endif %} controls muted playsinline></video>
+        {% else %}
+        <img src="{{ slide.src }}" alt="{{ slide.alt | default: slide.title | escape }}" loading="lazy">
+        {% endif %}
+      </div>
+      <div class="slide-caption">
+        <div class="slide-title">{{ slide.title }}</div>
+        {% if slide.caption %}<p class="muted">{{ slide.caption }}</p>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    <button class="slider-control prev" type="button" aria-label="Previous slide" data-prev>
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="slider-control next" type="button" aria-label="Next slide" data-next>
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="slider-indicator" aria-live="polite" data-slider-index>1 / {{ slider.slides.size }}</div>
+  </div>
+</section>
+{% endif %}

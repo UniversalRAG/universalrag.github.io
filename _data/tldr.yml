@@ -1,0 +1,7 @@
+figure: assets/fig/concept.webp
+caption: |
+  Conceptual illustration comparing existing RAG strategies with our proposed UniversalRAG.
+  1. RAG with Single Modality struggles to handle queries requiring modalities other than one in the corpus.
+  2. RAG with Single Granularity lacks flexibility in granularity, resulting in overly fine or overly coarse information.
+  3. RAG with Single Unified Corpus causes modality gaps that bias retrieval toward the modality of the query.
+  4. Our **UniversalRAG** overcomes these limitations via a **modality- and granularity-aware routing** mechanism over diverse corpora.
