@@ -12,6 +12,9 @@ permalink: /
   {% assign meta_description = site.description | default: "AI project page overview and resources." %}
   {% assign meta_image = site.data.tldr.figure | default: "https://placehold.co/1200x630/1f6feb/ffffff?text=AI+Project" %}
   <meta name="description" content="{{ meta_description | strip_html | strip_newlines | truncate: 155 }}">
+  {% if site.keywords %}
+  <meta name="keywords" content="{{ site.keywords }}">
+  {% endif %}
   <meta name="robots" content="index,follow">
   {% if site.google_site_verification %}
   <meta name="google-site-verification" content="{{ site.google_site_verification }}">
@@ -57,7 +60,7 @@ permalink: /
   <link rel="stylesheet" href="{{ '/css/academicons-1.9.4/css/academicons.min.css' | relative_url }}">
   <style>
     :root {
-      --bg: #f7f9fc;
+      --bg: #ffffff;
       --card: #ffffff;
       --text: #101827;
       --muted: #4b5563;

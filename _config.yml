@@ -1,5 +1,6 @@
 title: "UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities"
 description: "UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities"
+keywords: "UniversalRAG, Multimodal RAG, Retrieval-Augmented Generation, RAG, Multimodal Retrieval, Cross-modal Retrieval, Modality-aware Routing, Data Granularity"
 markdown: kramdown
 kramdown:
   input: GFM

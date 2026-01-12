@@ -27,14 +27,14 @@ We further conduct ablation studies to validate the effectiveness of UniversalRA
 <div class="figure-grid">
 <figure style="display: flex; flex-direction: column; align-items: center;">
   <img src="assets/fig/result_cross_modal.webp" alt="Cross-modal Performance" style="height: 180px; width: auto; max-width: 100%;">
-  <figcaption style="max-width: 100%; text-align: left;"><strong>Figure 4.</strong> Performance comparison of uni-modal and cross-modal approaches across different router models.</figcaption>
+  <figcaption style="max-width: 100%; text-align: left;"><strong>Table 2.</strong> Performance comparison of uni-modal and cross-modal approaches across different router models.</figcaption>
 </figure>
 <figure style="display: flex; flex-direction: column; align-items: center;">
   <img src="assets/fig/result_gran.webp" alt="Granularity Performance" style="height: 180px; width: auto; max-width: 100%;">
-  <figcaption style="max-width: 100%; text-align: left;"><strong>Figure 5.</strong> Performance across different numbers of granularity (#Gn) for training-free router models.</figcaption>
+  <figcaption style="max-width: 100%; text-align: left;"><strong>Table 3.</strong> Performance across different numbers of granularity (#Gn) for training-free router models.</figcaption>
 </figure>
 <figure style="display: flex; flex-direction: column; align-items: center;">
   <img src="assets/fig/result_latency.webp" alt="Latency Comparison" style="height: 180px; width: auto; max-width: 100%;">
-  <figcaption style="max-width: 100%; text-align: left;"><strong>Figure 6.</strong> Retrieval latency per query across corpus sizes.</figcaption>
+  <figcaption style="max-width: 100%; text-align: left;"><strong>Figure 4.</strong> Retrieval latency per query across corpus sizes.</figcaption>
 </figure>
 </div>
