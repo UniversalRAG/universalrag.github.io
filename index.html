@@ -175,10 +175,16 @@ permalink: /
     .title-block h1 {
       font-size: clamp(1.95rem, 3vw, 2.5rem);
       letter-spacing: var(--heading-letter-spacing);
-      margin: 12px 0 32px;
+      margin: 12px 0 16px;
       font-family: var(--font-heading);
       font-weight: var(--font-heading-weight);
       line-height: 1.25;
+    }
+    .conference {
+      font-size: 1.5rem;
+      color: var(--muted);
+      font-weight: var(--font-heading-weight);
+      margin-bottom: 18px;
     }
     .authors {
       display: flex;
@@ -621,6 +627,10 @@ permalink: /
   <main class="container" id="top">
     <section class="title-block">
       <h1>UniversalRAG: Retrieval-Augmented Generation over Corpora of Diverse Modalities and Granularities</h1>
+      {% assign conference_name = site.conference | default: "" | strip %}
+      {% if conference_name != "" %}
+      <div class="conference">{{ conference_name }}</div>
+      {% endif %}
       <div class="authors">
         <span class="author"><a href="https://wgcyeo.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Woongyeong Yeo</a><sup>*</sup><sup class="affil affil-1">1</sup></span>
         <span class="author"><a href="https://kangsankim07.github.io" class="author-link" target="_blank" rel="noopener noreferrer">Kangsan Kim</a><sup>*</sup><sup class="affil affil-1">1</sup></span>
