@@ -12,8 +12,8 @@ exclude:
 google_analytics_id: G-WY4L295FYG
 google_site_verification:
 equal_contribution_note: "* : equal contribution"
-equal_advising_note:
-conference: "ACL 2026"
+equal_advising_note: "† : equal advising"
+conference: "ACL 2026 Oral"
 
 # Typography
 font_style: sans # options: sans or serif
